@@ -6,7 +6,7 @@
         </div>
         <div id="nav" class="text-right inline-block font-bold text-xl">
             <router-link to="/">Home</router-link> |
-            <router-link to="/about">Connectivity</router-link> |
+            <router-link to="/connectivity">Connectivity</router-link> |
             <router-link to="/about">Account</router-link>
         </div>
     </header>
