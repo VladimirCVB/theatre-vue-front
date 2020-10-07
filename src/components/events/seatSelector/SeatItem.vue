@@ -1,15 +1,26 @@
 <template>
-    <div class="seat-item">
-        <p>
-            <input type="checkbox" />
-            {{seat.id}}
-            </p>
+    <div class="seat-item inline-block border-2 border-black m-4 p-2" v-bind:class="{'bg-blue-600': selected}">
+        <button @click="$emit('sel-seat', seat)">
+        <label>{{seat.number}}</label><br />
+        <label>{{seat.price}} $</label>
+        </button>
     </div>
 </template>
 
 <script>
 export default {
     name: "SeatItem",
-    props: ["seat"]
+    props: ["seat"],
+    data(){
+        return {
+            selected: false,
+        }
+    },
+    methods: {
+        // selectSeat(seat){
+        //     this.selected = !this.selected;
+        //     return seat;
+        // }
+    }
 }
 </script>
