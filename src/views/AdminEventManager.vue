@@ -3,6 +3,7 @@
     <div id="content" class="mt-12">
       <EventsMager v-bind:events="events" v-on:del-event="deleteEvent" />
     </div>
+    <router-link to="/admin/eventcreator" class="bg-blue-600 p-2 mx-4 bold text-white rounded float-right">Create Event</router-link>
   </div>
 </template>
 
