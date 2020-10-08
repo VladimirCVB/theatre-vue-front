@@ -1,5 +1,5 @@
 <template>
-    <div class="seat-item inline-block border-2 border-black m-4 p-2" v-bind:class="{'bg-blue-600': selected}">
+    <div class="seat-item inline-block border-2 border-black m-4 p-2 outline-none">
         <button @click="$emit('sel-seat', seat)">
         <label>{{seat.number}}</label><br />
         <label>{{seat.price}} $</label>
@@ -17,10 +17,6 @@ export default {
         }
     },
     methods: {
-        // selectSeat(seat){
-        //     this.selected = !this.selected;
-        //     return seat;
-        // }
     }
 }
 </script>
