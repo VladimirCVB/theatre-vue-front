@@ -10,12 +10,19 @@ import axios from 'axios';
 
 export default {
   name: "CreateEvent",
+  data(){
+    return{
+      events: []
+    }
+  },
   components: {
     EventCreator
   },
   methods: {
     addEvent(newEvent){
-      const { name, description, date, imgSrc, id } = newEvent;
+      var id = this.events.length;
+
+      const { name, description, date, imgSrc } = newEvent;
 
       axios.post('http://localhost:9090/theater/events', {
         name,
@@ -24,9 +31,14 @@ export default {
         imgSrc,
         id
       })
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err));
+      .then(res => alert(res.data + "Event created successfuly!"))
+      .catch(err => alert("There has been an error! " + err));
     }
+  },
+  created(){
+    axios.get('http://localhost:9090/theater/events')
+        .then(response => this.events = response.data)
+        .catch(err => console.log(err));
   }
 }
 </script>

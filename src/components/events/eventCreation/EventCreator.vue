@@ -26,7 +26,6 @@ export default {
             description: '',
             date: '',
             imgSrc: '',
-            id: 5
         }
     },
     methods: {
@@ -38,7 +37,6 @@ export default {
                 description: this.description,
                 date: this.date,
                 imgSrc: this.imgSrc,
-                id: this.id
             }
 
             this.$emit('add-event', newEvent);

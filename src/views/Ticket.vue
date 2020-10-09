@@ -68,11 +68,10 @@ export default {
         axios.put('http://localhost:9090/theater/events/' + this.id, {
             seats: JSON.parse(JSON.stringify(this.seats))
         })
-            .then(response => console.log(response.data))
-            .catch(err => console.log(err));
+            .then(response => alert(response.data + "You have successfully reserved the seats!"))
+            .catch(err => alert("There has been an error! " + err));
 
             this.selSeats.splice(0);
-            console.log(this.selSeats);
 
     }
   },
