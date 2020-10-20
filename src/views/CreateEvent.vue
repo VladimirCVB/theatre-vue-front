@@ -20,16 +20,17 @@ export default {
   },
   methods: {
     addEvent(newEvent){
-      var id = this.events.length;
+      //var id = this.events.length;
+      var access = true;
 
       const { name, description, date, imgSrc } = newEvent;
 
       axios.post('http://localhost:9090/theater/events', {
         name,
-        description,
         date,
+        description,
         imgSrc,
-        id
+        access
       })
       .then(res => alert(res.data + "Event created successfuly!"))
       .catch(err => alert("There has been an error! " + err));
