@@ -25,7 +25,7 @@ export default {
         alert("Please fill in all the fields regarding event information.");
       }
 
-      const { name, description, date, imgSrc, access, seats, seatPrice } = newEvent;
+      const { name, description, date, imgSrc, access, seats, price } = newEvent;
 
       axios.post('http://localhost:9090/theater/events', {
         name,
@@ -33,8 +33,9 @@ export default {
         description,
         imgSrc,
         access,
+        price,
         seats,
-        seatPrice
+        
       })
       .then(res => alert(res.data + "Event created successfuly!"))
       .catch(err => alert("There has been an error! " + err));

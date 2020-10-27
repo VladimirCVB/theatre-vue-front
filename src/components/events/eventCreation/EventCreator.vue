@@ -13,9 +13,9 @@
                 <label>Event Access to the Public</label><br />
                 <input v-model="access" class="shadow py-2 px-3 focus:outline-none focus:shadow-outline my-4" type="checkbox" name="access" value="Event Access" /><br />
                 <label>Number of Seats</label>
-                <input v-model="seats" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="number" name="seatsNumber"/>
+                <input v-model="seats" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="number" name="seats"/>
                 <label>Seat Price</label>
-                <input v-model="seatPrice" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="number" name="seatPrice"/>
+                <input v-model="price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="number" name="price"/>
                 <input class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-4 float-right" value="Create Event" type="submit" />
             </form>
         </div>
@@ -32,9 +32,9 @@ export default {
             description: null,
             date: null,
             imgSrc: null,
-            access: null,
+            access: false,
             seats: null,
-            seatPrice: null,
+            price: null,
         }
     },
     methods: {
@@ -48,10 +48,10 @@ export default {
                 imgSrc: this.imgSrc,
                 access: this.access,
                 seats: this.seats,
-                seatPrice: this.seatPrice
+                price: this.price
             }
 
-            let inputs = [this.name, this.description, this.date, this.imgSrc, this.seats, this.seatPrice];
+            let inputs = [this.name, this.description, this.date, this.imgSrc, this.seats, this.price];
 
             for(var i = 0; i < inputs.length; i++){
                 if(!inputs[i]){
