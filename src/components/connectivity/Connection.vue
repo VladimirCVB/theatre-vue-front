@@ -44,7 +44,7 @@ export default {
         login(){
             const user = {
 
-                emai: this.email, 
+                email: this.email, 
                 password: this.password
 
                 };
