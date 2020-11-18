@@ -1,6 +1,6 @@
 <template>
     <div class="p-10 bg-gray-400 rounded-lg shadow-xl" v-if="!register">
-        <form action="#" @submit.prevent="login">
+        <form @submit="login">
             <label>Email Adress</label>
             <input v-model="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="text" name="email"/>
             <label>Password</label>
@@ -41,7 +41,9 @@ export default {
             this.register = value;
         },
 
-        login(){
+        login(e){
+            e.preventDefault();
+
             const user = {
 
                 email: this.email, 

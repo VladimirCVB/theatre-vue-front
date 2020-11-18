@@ -18,12 +18,14 @@ export default {
     login(user){
       const {email, password} = user;
 
-        axios.get('http://localhost:9090/theater/events', {
-        email,
-        password
-      })
-      .then(res => alert(res.data + "Event created successfuly!"))
-      .catch(err => alert("There has been an error! " + err));
+      const tok = email + ':' + password;
+      const hash = btoa(tok);
+      const Basic = 'Basic ' + hash;
+      axios.get('http://localhost:9090/theater/users', {headers : {'Authorization' : Basic }})
+            .then(function(response) {
+              console.log(response);
+              window.location.href = "/";
+            }).catch(err => console.log(err));
     }
   }
 }
