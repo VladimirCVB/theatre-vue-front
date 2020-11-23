@@ -5,7 +5,7 @@
         <p class="text-justify p-5">{{event.description}}</p>
         <div class="flex items-end h-12">
             <label class="flex-1 bg-blue-600 text-center text-white px-4 py-2 m-2 rounded">{{event.date}}</label>
-            <a v-if="event.access" class="flex-1 bg-blue-600 text-center text-white px-4 py-2 m-2 rounded" v-bind:href="'http://localhost:8080/#/' + event.id + '/ticket'">Buy Ticket</a>
+            <a v-if="event.access && value" class="flex-1 bg-blue-600 text-center text-white px-4 py-2 m-2 rounded" v-bind:href="'http://localhost:8080/#/' + event.id + '/ticket'">Buy Ticket</a>
         </div>   
     </div><br />
 </template>
@@ -13,7 +13,7 @@
 <script>
 export default {
     name: "EventItem",
-    props: ["event"],
+    props: ["event", "value"],
     methods: {}
 }
 </script>

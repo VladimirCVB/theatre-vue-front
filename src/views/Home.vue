@@ -26,7 +26,7 @@ export default {
       axios.get('http://localhost:9090/theater/events')
         .then(response => this.events = response.data)
         .catch(err => console.log(err));
-        
+       
     }
 }
 </script>
