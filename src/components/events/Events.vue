@@ -28,7 +28,7 @@ export default {
 
             }
         },
-        created() {
+    created() {
             if(this.getCookie("Token") != null){
                 this.value = true;
 
@@ -40,7 +40,7 @@ export default {
 
                 var user = JSON.parse(jsonPayload);
                 this.value = user.sub;
-                //console.log(user);
+                console.log(user);
             }
                 
         }

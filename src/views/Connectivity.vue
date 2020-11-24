@@ -16,17 +16,6 @@ export default {
   },
   methods: {
     login(user){
-      // const {email, password} = user;
-
-      // const tok = email + ':' + password;
-      // const hash = btoa(tok);
-      // const Basic = 'Basic ' + hash;
-      // axios.post('http://localhost:9090/theater/users/login', {headers : {'Authorization' : Basic }})
-      //       .then(function(response) {
-      //         console.log(response);
-      //         window.location.href = "/";
-      //       }).catch(err => console.log(err));
-
       const {email, password} = user;
       var params = new URLSearchParams();
       params.append('username', email);
