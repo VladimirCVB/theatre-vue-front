@@ -22,11 +22,25 @@ export default {
       events: []      
     }
   },
+  methods: {
+            getCookie(name) {
+                const value = document.cookie;
+                const parts = value.split(name);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+
+            }
+        },
   created(){
-      axios.get('http://localhost:9090/theater/events')
+
+      var cookie = this.getCookie("Token");
+      console.log(cookie);
+      axios.get('http://localhost:9090/theater/events', {
+        headers: {
+          authorization: 'Bearer' + cookie
+        }
+      })
         .then(response => this.events = response.data)
         .catch(err => console.log(err));
-       
     }
 }
 </script>

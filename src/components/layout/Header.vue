@@ -41,7 +41,7 @@
 
                 var user = JSON.parse(jsonPayload);
                 this.value = user.sub;
-                console.log(user);
+                //console.log(user);
             }
                 
         }
