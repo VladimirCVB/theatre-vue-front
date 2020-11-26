@@ -1,24 +1,50 @@
 <template>
-    <div class="p-10 bg-gray-400 rounded-lg shadow-xl">
-        <div>
-            <form @submit="addEvent">
-                <label>Title</label>
-                <input v-model="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="text" name="name"/>
-                <label>Description</label>
-                <textarea v-model="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="text" name="description"/>
-                <label>Date</label>
-                <input v-model="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="date" name="date" />
-                <label>Image Link</label>
-                <input v-model="imgSrc" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="text" name="imgSrc" />
-                <label>Event Access to the Public</label><br />
-                <input v-model="access" class="shadow py-2 px-3 focus:outline-none focus:shadow-outline my-4" type="checkbox" name="access" value="Event Access" /><br />
-                <label>Number of Seats</label>
-                <input v-model="seats" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="number" name="seats"/>
-                <label>Seat Price</label>
-                <input v-model="price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="number" name="price"/>
-                <input class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-4 float-right" value="Create Event" type="submit" />
-            </form>
+    <div class="mt-5 md:mt-0 md:col-span-2">
+      <form @submit="addEvent">
+        <div class="shadow-xl overflow-hidden sm:rounded-md bg-blue-600">
+          <div class="px-4 py-5 bg-white sm:p-6">
+            <div class="grid grid-cols-8 gap-12">
+              <div class="col-span-8">
+                <label for="first_name" class="block text-sm font-medium text-gray-700">Event Title</label>
+                <input v-model="name" type="text" id="first_name" class="border-black border-2 p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              </div>     
+
+              <div class="col-span-8">
+                <label for="email_address" class="block text-sm font-medium text-gray-700">Description</label>
+                <textarea v-model="description" id="email_address" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+              </div>
+
+              <div class="col-span-8">
+                <label for="street_address" class="block text-sm font-medium text-gray-700">Date</label>
+                <input v-model="date" type="date" id="street_address" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              </div>
+
+              <div class="col-span-8">
+                <label for="city" class="block text-sm font-medium text-gray-700">Image Link</label>
+                <input v-model="imgSrc" type="text" id="city" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              </div>
+
+              <div class="col-span-8">
+                <label for="postal_code" class="block text-sm font-medium text-gray-700">Event Access To The Public</label>
+                <input v-model="access" type="checkbox" name="access" id="postal_code" class="mt-5">
+              </div>
+
+              <div class="col-span-8 sm:col-span-4">
+                <label for="postal_code" class="block text-sm font-medium text-gray-700">Number of Seats</label>
+                <input v-model="seats" type="number" name="price" id="postal_code" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              </div>
+
+              <div class="col-span-8 sm:col-span-4">
+                <label for="postal_code" class="block text-sm font-medium text-gray-700">Seat Price</label>
+                <input v-model="price" type="number" name="seats" id="postal_code" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              </div>
+            </div>
+          </div>
+          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <input class="inline-flex justify-center py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white border-white border-2 ease-in duration-200 bg-blue-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" value="Create Event" type="submit" />
+          </div>
         </div>
+      </form>
     </div>
 </template>
 

@@ -1,78 +1,184 @@
 <template>
-    <header class="grid gap-4 grid-cols-2 bg-blue-600 h-20 p-10 text-white content-center">
-        <div class="text-left inline-block">
-            <i class="fas fa-theater-masks fa-2x inline-block"></i>
-            <label class="p-10 text-xl font-bold">Theater Manager</label>
-        </div>
-        <div id="nav" class="text-right inline-block font-bold text-xl">
-            <router-link class="hover:bg-white hover:text-blue-600 ease-in duration-300 p-2 rounded-lg" to="/"><i class="fas fa-home"></i> Home</router-link> |
-            <div v-if="loggedIn != null" class="inline-block">
-                <button v-on:click="enableDropDown" class="hover:bg-white font-bold hover:text-blue-600 ease-in duration-300 p-2 rounded-lg">{{loggedIn}} <i class="far fa-hand-point-down"></i></button>
-                <div v-if="dropDown" class="absolute bg-blue-600 shadow-xl p-3 z-10">
-                    <router-link class="hover:bg-white hover:text-blue-600 ease-in duration-300 mb-2 p-1 rounded-lg block" to="/account"><i class="fas fa-user-circle"></i> Account</router-link>
-                    <router-link class="hover:bg-white hover:text-blue-600 ease-in duration-300 p-1 rounded-lg block" to="/connectivity"><i class="fas fa-sign-out-alt"></i><button class="font-bold" v-on:click="logOut"> Log Out</button></router-link>
-                </div>
+  <nav class="bg-blue-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <i class="fas fa-theater-masks text-white fa-2x inline-block"></i>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-4">
+              <div class="mr-5">
+                <span class="text-white text-lg font-bold"
+                  >Theatre Manager</span
+                >
+              </div>
+              <router-link
+                to="/"
+                class="px-3 py-2 rounded-md text-sm font-medium text-white ease-in duration-200 hover:text-blue-600 hover:bg-white"
+                >Home</router-link
+              >
+
+              <router-link
+                v-if="loggedIn == null"
+                to="/connectivity"
+                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 ease-in duration-200 hover:text-blue-600 hover:bg-white"
+                >Connect</router-link
+              >
+
+              <router-link
+                to="/about"
+                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 ease-in duration-200 hover:text-blue-600 hover:bg-white"
+                >About</router-link
+              >
+              <router-link
+                v-if="user.role == 'administrator'"
+                to="/admin/eventmanager"
+                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 ease-in duration-200 hover:text-blue-600 hover:bg-white"
+                >Event Manager</router-link
+              >
+              <router-link
+                v-if="user.role == 'administrator'"
+                to="/admin/eventcreator"
+                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 ease-in duration-200 hover:text-blue-600 hover:bg-white"
+                >Event Creator</router-link
+              >
             </div>
-            <router-link v-if="loggedIn == null" class="hover:bg-white hover:text-blue-600 ease-in duration-300 p-2 rounded-lg" to="/connectivity"><i class="fas fa-sign-in-alt"></i> Connect</router-link> |
-            <router-link class="hover:bg-white hover:text-blue-600 ease-in duration-300 p-2 rounded-lg" to="/about"><i class="fas fa-info-circle"></i> About</router-link>
+          </div>
         </div>
-    </header>
+        <div class="hidden md:block">
+          <div class="ml-4 flex items-center md:ml-6">
+            <!-- Profile dropdown -->
+            <div v-if="loggedIn != null" class="ml-3 relative">
+              <div>
+                <button
+                  class="max-w-xs rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                  id="user-menu"
+                  aria-haspopup="true"
+                >
+                  <span class="sr-only">Open user menu</span>
+                  <button
+                    v-on:click="enableDropDown"
+                    v-if="user != null"
+                    class="focus:outline-none px-3 py-2 rounded-md text-sm font-medium text-white ease-in duration-200 hover:text-blue-600 hover:bg-white"
+                  >
+                    {{user.name}}
+                  </button>
+                </button>
+              </div>
+              <!--
+                Profile dropdown panel, show/hide based on dropdown state.
+
+                Entering: "transition ease-out duration-100"
+                  From: "transform opacity-0 scale-95"
+                  To: "transform opacity-100 scale-100"
+                Leaving: "transition ease-in duration-75"
+                  From: "transform opacity-100 scale-100"
+                  To: "transform opacity-0 scale-95"
+              -->
+              <div
+                v-if="dropDown"
+                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="user-menu"
+              >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"
+                  role="menuitem"
+                  >Your Profile</a
+                >
+
+                <router-link
+                  to="/connectivity"
+                  v-on:click="logOut"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"
+                  role="menuitem"
+                  >Log Out</router-link
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
-    export default {
-        name: "Header",
-        data() {
-            return {
-            loggedIn: null,
-            dropDown: null,
-            check: 0    
-            }
-        },
-        methods: {
-            getCookie(name) {
-                const loggedIn = document.cookie;
-                const parts = loggedIn.split(name);
-                if (parts.length === 2) return parts.pop().split(';').shift();
-            },
-            enableDropDown(){
-                if(this.check == 0){
-                    this.dropDown = true;
+import axios from "axios";
 
-                    this.check++;
-                }
-                else{
-                    this.dropDown = false;
+export default {
+  name: "Header",
+  data() {
+    return {
+      loggedIn: null,
+      dropDown: null,
+      check: 0,
+      user: [],
+    };
+  },
+  methods: {
+    getCookie(name) {
+      const loggedIn = document.cookie;
+      const parts = loggedIn.split(name);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    },
+    enableDropDown() {
+      if (this.check == 0) {
+        this.dropDown = true;
 
-                    this.check--;
-                } 
-            },
-            logOut(){
-                document.cookie = "Token" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        this.check++;
+      } else {
+        this.dropDown = false;
 
-                this.dropDown = false;
-                this.check = 0;
-                this.loggedIn = null;
-            }
-        },
-        created() {
+        this.check--;
+      }
+    },
+    logOut() {
+      document.cookie =
+        "Token" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 
-            var token = this.getCookie("Token");
+      this.dropDown = false;
+      this.check = 0;
+      this.loggedIn = null;
+      this.user = [];
+    },
+  },
+  created() {
+    var token = this.getCookie("Token");
 
-            if(token != null){
+    if (token != null) {
+      this.loggedIn = true;
 
-                this.loggedIn = true;
+      var base64Url = token.split(".")[1];
+      var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      var jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map(function (c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
 
-                var base64Url = token.split('.')[1];
-                var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join(''));
+      var parsedToken = JSON.parse(jsonPayload);
+      this.loggedIn = parsedToken.sub;
+      
+      var userId = parsedToken.sub;
 
-                var user = JSON.parse(jsonPayload);
-                this.loggedIn = user.sub;
-
-            }     
-        }
+      axios
+        .get("http://localhost:9090/theater/users/" + userId, {
+          headers: {
+            authorization: "Bearer" + token,
+          },
+        })
+        .then(
+          (response) => (this.user = response.data)
+        )
+        .catch((err) => console.log(err));
     }
+  },
+};
 </script>

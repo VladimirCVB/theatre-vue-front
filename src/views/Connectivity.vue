@@ -15,10 +15,19 @@ export default {
     Connection
   },
   methods: {
+    checkError(error){
+      if(error == 401){
+        alert("Wrong credentials. Please try again.");
+      }
+      else {
+        alert("Server error, please try again later.");
+      }
+    },
+
     login(user){
       const {email, password} = user;
       var params = new URLSearchParams();
-      params.append('username', email);
+      params.append('login', email);
       params.append('password', password);
 
       console.log(email);
@@ -33,7 +42,7 @@ export default {
               document.cookie = "Token=" + response.data + ";" + expires + ";path=/";
               //this.$cookies.set("keyName", response.data, "expiring time")
               window.location.href = "/";
-            }).catch(err => console.log(err));
+            }).catch(err => this.checkError(err.response.status));
     }
   }
 }

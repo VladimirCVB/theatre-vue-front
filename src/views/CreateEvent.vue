@@ -1,5 +1,5 @@
 <template>
-  <div class="about flex items-center justify-center h-screen">
+  <div class="flex items-center justify-center h-screen">
     <EventCreator v-on:add-event="addEvent" />
   </div>
 </template>
@@ -19,6 +19,11 @@ export default {
     EventCreator
   },
   methods: {
+    getCookie(name) {
+      const value = document.cookie;
+      const parts = value.split(name);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    },
     addEvent(newEvent){
 
       if(newEvent == null){
@@ -26,6 +31,7 @@ export default {
       }
 
       const { name, description, date, imgSrc, access, seats, price } = newEvent;
+      var cookie = this.getCookie("Token");
 
       axios.post('http://localhost:9090/theater/events', {
         name,
@@ -36,15 +42,13 @@ export default {
         price,
         seats,
         
-      })
+      }, {
+        headers: {
+          authorization: "Bearer" + cookie,
+        }})
       .then(res => alert(res.data + "Event created successfuly!"))
       .catch(err => alert("There has been an error! " + err));
     }
   },
-  created(){
-    axios.get('http://localhost:9090/theater/events')
-        .then(response => this.events = response.data)
-        .catch(err => console.log(err));
-  }
 }
 </script>

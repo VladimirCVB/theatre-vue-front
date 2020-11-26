@@ -1,65 +1,59 @@
 <template>
-    <div class="p-10 bg-gray-400 rounded-lg shadow-xl" v-if="!register">
-        <form @submit="login">
-            <label>Email Adress</label>
-            <input v-model="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="text" name="email"/>
-            <label>Password</label>
-            <input v-model="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="password" name="password" />
-            <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-4" type="submit">Sign In</button>
-            <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-4 float-right" type="button" v-on:click="turnRegister(true)">Register</button>
-        </form>
-    </div>
+ <div class="mt-5 md:mt-0 md:col-span-2">
+      <form @submit="login">
+        <div class="shadow-xl overflow-hidden sm:rounded-md bg-blue-600">
+          <div class="px-4 py-5 bg-white sm:p-6">
+            <div class="grid grid-cols-8 gap-12">
+              <div class="col-span-8">
+                <label for="first_name" class="block text-sm font-medium text-gray-700">Email</label>
+                <input v-model="email" placeholder="john@email.com" type="text" id="first_name" class="border-black border-2 p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              </div>     
 
-    <div class="p-10 bg-gray-400 rounded-lg shadow-xl" v-else>
-        <form>
-            <label>Email Adress</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="text" name="email"/>
-            <label>Name</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="text" name="email"/>
-            <label>Password</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="password" name="password" />
-            <label>Confirm Password</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-4" type="password" name="password" />
-            <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-4 float-right" type="button">Register Account</button>
-        </form>
+              <div class="col-span-8">
+                <label for="email_address" class="block text-sm font-medium text-gray-700">Password</label>
+                <input v-model="password" placeholder="************" type="password" id="email_address" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              </div>
+            </div>
+          </div>
+          <div class="px-4 py-3 bg-gray-50 sm:px-6">
+            <input class="float-right inline-flex justify-center py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white border-white border-2 ease-in duration-200 bg-blue-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" value="Log In" type="submit" />
+            <button class="inline-flex justify-center py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white border-white border-2 ease-in duration-200 bg-blue-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Register</button>
+          </div>
+        </div>
+      </form>
     </div>
 </template>
 
 <script>
-
 export default {
-    name: "Connection",
-     data() {
+  name: "Connection",
+  data() {
     return {
       email: null,
       password: null,
-      register: false    
-    }
+      register: false,
+    };
   },
-    methods: {
-        turnRegister(value){
-            this.register = value;
-        },
+  methods: {
+    turnRegister(value) {
+      this.register = value;
+    },
 
-        login(e){
-            e.preventDefault();
+    login(e) {
+      e.preventDefault();
 
-            const user = {
+      if(this.email == null || this.password == null){
+          alert("Please fill in the form!");
+          return;
+      }
 
-                email: this.email, 
-                password: this.password
+      const user = {
+        email: this.email,
+        password: this.password,
+      };
 
-                };
-
-            this.$emit('login', user);
-        }
-    }
-}
+      this.$emit("login", user);
+    },
+  },
+};
 </script>
-
-<style scoped>
-
-.is-visible{
-    display: none;
-}
-</style>
