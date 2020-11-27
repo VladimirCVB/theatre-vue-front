@@ -2,32 +2,57 @@
   <div class="home">
     <div id="content">
       <div id="seats" class="text-center inline-block m-12 font-bold w-1/2">
-        <header class="text-white font-bold bg-blue-600 w-full mb-6">
+        <header class="text-white font-bold bg-blue-600 w-full mb-6 rounded-lg">
           <h1 class="text-4xl">{{ event.name }}</h1>
         </header>
-        <div id="seatRow" class="border-2 border-black">
+        <div id="seatRow" class="bg-gray-300 rounded-lg shadow-xl">
           <Seats v-bind:seats="seats" v-on:sel-seat="selectSeat" />
+          <label class="block bg-blue-600 rounded-b-lg shadow-xl text-white my-3">Seat Selector</label>
         </div>
-        <label>Seat Selector</label>
       </div>
-      <div
-        id="ticket"
-        class="inline-block p-10 float-right m-12 w-1/3 text-white font-bold bg-blue-600"
-      >
-        <h1 class="text-2xl mb-4 text-center">Ticket</h1>
-        <ul id="example-1">
-          <li v-for="seat in selSeats" :key="seat.id">
-            <span class="">Seat: {{ seat.number }}</span>
-            <span class="float-right">Price: {{ seat.price }}$</span>
-            <i
-              class="far fa-trash-alt ml-2 cursor-pointer"
-              @click="removeSeat(seat)"
-            ></i>
-          </li>
-        </ul>
+      <div id="ticket" class="inline-block shadow-xl overflow-hidden float-right m-12 mr-16 w-1/4 text-white font-bold bg-gray-300 rounded-lg">
+        <div>
+          <h1 class="text-2xl mb-4 text-center bg-blue-600">Ticket</h1>
+        </div>
+        
+        <div class="grid grid-cols-6 p-4 text-center text-blue-600">
+
+          <div class="col-span-6 sm:col-span-3">
+            <span>Seat</span>
+          </div>
+
+          <div class="col-span-6 sm:col-span-3">
+            <span>Price</span>
+          </div>
+
+        </div>
+
+        <div class="grid grid-cols-6 p-4 text-center text-blue-600">
+
+          <div class="col-span-6 sm:col-span-3">
+            <ul>
+              <li v-for="seat in selSeats" :key="seat.id">
+              <span>{{ seat.number }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-span-6 sm:col-span-3">
+            <ul>
+              <li v-for="seat in selSeats" :key="seat.id">
+              <span>{{ seat.price }}$</span>
+              <i
+                class="far fa-trash-alt ml-2 cursor-pointer"
+                @click="removeSeat(seat)"
+              ></i>
+              </li>
+            </ul>
+          </div>
+
+        </div>
         <div class="text-center">
           <button
-            class="bg-white text-black rounded w-56 font-bold mt-4 h-12"
+            class="bg-blue-600 text-white rounded w-56 font-bold my-4 h-12 hover:bg-blue-700 ease-in duration-200"
             @click="updateSeatStatus"
           >
             Buy

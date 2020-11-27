@@ -1,9 +1,11 @@
 <template>
-    <div class="seat-item inline-block border-2 border-black m-4 p-2 outline-none">
-        <button @click="$emit('sel-seat', seat)">
-        <label>{{seat.number}}</label><br />
-        <label>{{seat.price}} $</label>
-        </button>
+    <div @click="$emit('sel-seat', seat)" class="cursor-pointer inline-block m-4 p-2 outline-none bg-blue-600 text-white hover:bg-blue-700 shadow-xl rounded-lg">
+        <div>
+            <i class="fas fa-chair mx-1"></i>
+            <label>{{seat.number}}</label><br />
+            <i class="fas fa-dollar-sign mx-1"></i>
+            <label>{{seat.price}}</label>   
+        </div>
     </div>
 </template>
 

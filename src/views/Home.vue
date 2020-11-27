@@ -1,5 +1,5 @@
 <template>
-  <div class="home text-center">
+  <div class="home text-center bg-gray-300">
     <h1 class="text-5xl">Welcome to the Theater</h1>
     <div id="content">
       <Events v-bind:events="events" />
