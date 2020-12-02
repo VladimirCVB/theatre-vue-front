@@ -83,11 +83,12 @@
                 aria-orientation="vertical"
                 aria-labelledby="user-menu"
               >
-                <a
-                  href="#"
+                <router-link
+                  to="/user/userprofile"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"
                   role="menuitem"
-                  >Your Profile</a
+                  v-on:click="enableDropDown"
+                  >Your Profile</router-link
                 >
 
                 <router-link
