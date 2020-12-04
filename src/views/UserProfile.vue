@@ -85,7 +85,6 @@ export default {
       } else {
         window.location.href = '/';
       }
-      
     },
   },
   created() {
