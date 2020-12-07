@@ -2,7 +2,7 @@
   <div id="nav">
     <Header v-bind:token="token" v-bind:parsedToken="parsedToken" />
   </div>
-  <Chat class="origin-top-right absolute right-0 mt-2 rounded-md shadow-lg" />
+  <Chat v-bind:token="token" v-bind:parsedToken="parsedToken" class="origin-top-right absolute right-0 mt-2 rounded-md shadow-lg" />
   <router-view v-bind:token="token" v-bind:parsedToken="parsedToken" />
 </template>
 
@@ -47,6 +47,7 @@ export default {
   },
   created(){
     this.getCookie("Token");
+    if(this.token != null)
     this.parseToken();
   }
 }
