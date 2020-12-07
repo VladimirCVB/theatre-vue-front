@@ -13,15 +13,21 @@
               </div>
               <div v-if="dropDown" class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg p-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
 
-                <div v-for="mes in sent" :key="mes">
+                <div class="mb-1">
                   <i class="fas fa-headset mr-1">:</i>
-                  <span>{{mes}}</span>
+                  <span>Hello, this is a chat with an assistant. Someone will help you as soon as possible.</span>
+                </div>
+
+                <div class="mb-1" v-for="mes in messages" :key="mes">
+                  <i v-if="mes.sender == 'other'" class="fas fa-headset mr-1">:</i>
+                  <i v-if="mes.sender == 'you'" class="fas fa-user-circle mr-1 mt-1">:</i>
+                  <span>{{mes.value}}</span>
                 </div>
                 
-                <div class="flex justify-end" v-for="mes in received" :key="mes">
+                <!-- <div v-for="mes in messages" :key="mes" v-if="mes.sender == " class="flex justify-end">
                   <i class="fas fa-user-circle mr-1 mt-1">:</i>
                   <span>{{mes}}</span>
-                </div>
+                </div> -->
 
                 <div class="flex justify-center my-2">
                   <input v-model="message" class="border-b-2 outline-none" type="text" placeholder="Type your message here"/>
@@ -42,8 +48,7 @@ export default {
       dropDown: null,
       check: 0,
       message: '',
-      sent: [],
-      received: [],
+      messages: [],
       connection: null,
     };
   },
@@ -60,7 +65,12 @@ export default {
       }
     },
     sendMessage(){
-      this.sent.push(this.message);
+      const message = {
+        value: this.message,
+        sender: "you"
+      };
+
+      this.messages.push(message);
       this.connection.send(this.message);
     },
   },
@@ -73,7 +83,13 @@ export default {
     };
 
     this.connection.onmessage = ({data}) => {
-        this.received.push(data);
+
+        const message = {
+          value: data,
+          sender: "other"
+        };
+
+        this.messages.push(message);
         console.log(this.received);
       }
   }

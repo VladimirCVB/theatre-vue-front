@@ -70,49 +70,21 @@ import axios from 'axios';
 export default {
   name: "UserProfile",
   components: {},
+  props: ["token", "parsedToken"],
   data() {
     return {
       user: [],
       tickets: []
     };
   },
-  methods: {
-      getCookie(name) {
-      const loggedIn = document.cookie;
-      const parts = loggedIn.split(name);
-      if (parts.length === 2){
-        return parts.pop().split(";").shift();
-      } else {
-        window.location.href = '/';
-      }
-    },
-  },
   created() {
-    var token = this.getCookie("Token");
-
-    if (token != null) {
-      this.loggedIn = true;
-
-      var base64Url = token.split(".")[1];
-      var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      var jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split("")
-          .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      );
-
-      var parsedToken = JSON.parse(jsonPayload);
-      this.loggedIn = parsedToken.sub;
-      
-      var userId = parsedToken.sub;
+    if (this.token != null) {    
+      var userId = this.parsedToken.sub;
 
       axios
         .get("http://localhost:9090/theater/users/" + userId, {
           headers: {
-            authorization: "Bearer" + token,
+            authorization: "Bearer" + this.token,
           },
         })
         .then(

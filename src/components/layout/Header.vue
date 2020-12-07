@@ -112,6 +112,7 @@ import axios from "axios";
 
 export default {
   name: "Header",
+  props: ["token", "parsedToken"],
   data() {
     return {
       loggedIn: null,
@@ -121,11 +122,6 @@ export default {
     };
   },
   methods: {
-    getCookie(name) {
-      const loggedIn = document.cookie;
-      const parts = loggedIn.split(name);
-      if (parts.length === 2) return parts.pop().split(";").shift();
-    },
     enableDropDown() {
       if (this.check == 0) {
         this.dropDown = true;
@@ -148,31 +144,14 @@ export default {
     },
   },
   created() {
-    var token = this.getCookie("Token");
-
-    if (token != null) {
-      this.loggedIn = true;
-
-      var base64Url = token.split(".")[1];
-      var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      var jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split("")
-          .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      );
-
-      var parsedToken = JSON.parse(jsonPayload);
-      this.loggedIn = parsedToken.sub;
-      
-      var userId = parsedToken.sub;
+    if (this.token != null) {
+      this.loggedIn = this.parsedToken.sub;
+      var userId = this.parsedToken.sub;
 
       axios
         .get("http://localhost:9090/theater/users/" + userId, {
           headers: {
-            authorization: "Bearer" + token,
+            authorization: "Bearer" + this.token,
           },
         })
         .then(
