@@ -6,27 +6,26 @@
               <div>
                   <button
                     v-on:click="enableDropDown"
-                    class="focus:outline-none px-3 py-2 rounded-md text-sm font-medium text-white ease-in duration-200 hover:text-blue-600 hover:bg-white"
+                    class="focus:outline-none px-3 py-2 rounded-md text-sm font-medium text-black bg-white ease-in duration-200 hover:text-blue-600 hover:bg-black"
                   >
                     <i class="fas fa-headset"></i>
                   </button>
               </div>
               <div v-if="dropDown" class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg p-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
 
-                <div>
+                <div v-for="mes in sent" :key="mes">
                   <i class="fas fa-headset mr-1">:</i>
-                  <span>Hello</span>
+                  <span>{{mes}}</span>
                 </div>
                 
-                <div class="flex justify-end">
-                  <i class="fas fa-user-circle mr-1">:</i>
-                  <span>Hi</span>
-                  
+                <div class="flex justify-end" v-for="mes in received" :key="mes">
+                  <i class="fas fa-user-circle mr-1 mt-1">:</i>
+                  <span>{{mes}}</span>
                 </div>
 
                 <div class="flex justify-center my-2">
-                  <input class="border-b-2 outline-none" type="text" placeholder="Type your message here"/>
-                  <button class="bg-blue-600 px-1 ml-2 text-white rounded">Send</button>
+                  <input v-model="message" class="border-b-2 outline-none" type="text" placeholder="Type your message here"/>
+                  <button v-on:click="sendMessage" class="bg-blue-600 px-1 ml-2 text-white rounded">Send</button>
                 </div>
 
               </div>
@@ -40,18 +39,15 @@ export default {
   name: "AssistantChat",
   data() {
     return {
-      loggedIn: null,
       dropDown: null,
       check: 0,
-      user: [],
+      message: '',
+      sent: [],
+      received: [],
+      connection: null,
     };
   },
   methods: {
-    getCookie(name) {
-      const loggedIn = document.cookie;
-      const parts = loggedIn.split(name);
-      if (parts.length === 2) return parts.pop().split(";").shift();
-    },
     enableDropDown() {
       if (this.check == 0) {
         this.dropDown = true;
@@ -63,15 +59,23 @@ export default {
         this.check--;
       }
     },
-    logOut() {
-      document.cookie =
-        "Token" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-
-      this.dropDown = false;
-      this.check = 0;
-      this.loggedIn = null;
-      this.user = [];
+    sendMessage(){
+      this.sent.push(this.message);
+      this.connection.send(this.message);
     },
   },
+  created(){
+    this.connection = new WebSocket("ws://localhost:9090/ws/assistant");
+
+    this.connection.onopen = function(event) {
+      console.log(event);
+      console.log("Successfully connected to the echo websocket server...");
+    };
+
+    this.connection.onmessage = ({data}) => {
+        this.received.push(data);
+        console.log(this.received);
+      }
+  }
 }
 </script>
