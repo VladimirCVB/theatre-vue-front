@@ -1,6 +1,6 @@
 <template>
   <div class="about flex items-center justify-center h-screen">
-    <Connection v-on:login="login"/>
+    <Connection v-on:login="login" v-on:registration="registration"/>
   </div>
 </template>
 
@@ -30,9 +30,6 @@ export default {
       params.append('login', email);
       params.append('password', password);
 
-      console.log(email);
-      console.log(password);
-
       axios.post('http://localhost:9090/theater/users/login', params)
             .then(function(response) {
               console.log(response.data);
@@ -43,6 +40,19 @@ export default {
               //this.$cookies.set("keyName", response.data, "expiring time")
               window.location.href = "/";
             }).catch(err => this.checkError(err.response.status));
+    },
+
+    registration(userRegistration){
+      const {email, name, password} = userRegistration;
+      var params = new URLSearchParams();
+      params.append('email', email);
+      params.append('name', name);
+      params.append('password', password);
+
+      axios.post('http://localhost:9090/theater/users/create', params)
+            .then(function(response) {
+              console.log(response.data);
+            }).catch(err => alert("User with the same email address already exists. " + err));
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
- <div class="mt-5 md:mt-0 md:col-span-2">
-      <form v-if="!register" @submit="login">
+ <div v-if="!register" class="mt-5 md:mt-0 md:col-span-2">
+      <form @submit="login">
         <div class="shadow-xl overflow-hidden sm:rounded-md bg-blue-600">
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-8 gap-12">
@@ -23,7 +23,7 @@
       </form>
     </div>
     <div v-if="register" class="mt-5 md:mt-0 md:col-span-2">
-      <form>
+      <form @submit="registration">
         <div class="shadow-xl overflow-hidden sm:rounded-md bg-blue-600">
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-8 gap-12">
@@ -34,7 +34,7 @@
 
               <div class="col-span-8">
                 <label for="email_address" class="block text-sm font-medium text-gray-700">Name</label>
-                <input v-model="password" placeholder="John Doe" type="password" id="email_address" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                <input v-model="name" placeholder="John Doe" type="text" id="email_address" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-8">
@@ -44,7 +44,7 @@
 
               <div class="col-span-8">
                 <label for="email_address" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                <input v-model="password" placeholder="************" type="password" id="email_address" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                <input v-model="passwordConfirm" placeholder="************" type="password" id="email_address" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               </div>
             </div>
           </div>
@@ -87,6 +87,22 @@ export default {
 
       this.$emit("login", user);
     },
+    registration(e) {
+      e.preventDefault();
+
+      if(this.email == null || this.password == null || this.name == null || this.passwordConfirm == null){
+          alert("Please fill in the form!");
+          return;
+      }
+
+      const userRegistration = {
+        email: this.email,
+        name: this.name,
+        password: this.password,
+      };
+
+      this.$emit("registration", userRegistration);
+    }
   },
 };
 </script>
