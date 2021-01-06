@@ -11,17 +11,19 @@
                     <i class="fas fa-headset"></i>
                   </button>
               </div>
-              <div v-if="dropDown" class="origin-top-right absolute right-0 mt-2 test rounded-md shadow-lg p-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+              <div v-if="dropDown" class="origin-top-right absolute right-0 mt-2 test rounded-md shadow-lg px-2 py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
 
-                <div class="mb-1">
-                  <i class="fas fa-headset mr-1">:</i>
-                  <span>Hello, this is a chat with an assistant. Someone will help you as soon as possible.</span>
-                </div>
+                <div class="h-64 max-h-full overflow-auto">
+                  <div class="mb-1">
+                    <i class="fas fa-headset mr-1">:</i>
+                    <span>Hello, this is a chat with an assistant. Someone will help you as soon as possible.</span>
+                  </div>
 
-                <div class="mb-1" v-for="mes in messages" :key="mes">
-                  <i v-if="mes.sender == 'other' ||  mes.sender == 'administrator'" class="fas fa-headset mr-1">:</i>
-                  <i v-if="mes.sender == 'regular' " class="fas fa-user-circle mr-1 mt-1">:</i>
-                  <span>{{mes.value}}</span>
+                  <div class="mb-1" v-for="mes in messages" :key="mes">
+                    <i v-if="mes.sender == 'other' ||  mes.sender == 'administrator'" class="fas fa-headset mr-1">:</i>
+                    <i v-if="mes.sender == 'regular' " class="fas fa-user-circle mr-1 mt-1">:</i>
+                    <span>{{mes.value}}</span>
+                  </div>
                 </div>
                 
                 <!-- <div v-for="mes in messages" :key="mes" v-if="mes.sender == " class="flex justify-end">
