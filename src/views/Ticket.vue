@@ -79,6 +79,7 @@ export default {
       seats: [],
       event: [],
       selSeats: [],
+      selSeatsIds: []
     };
   },
   methods: {
@@ -94,18 +95,28 @@ export default {
       if (!answer) {
         seat.available = false;
         this.selSeats.push(seat);
+        this.selSeatsIds.push(seat.id);
       }
     },
     removeSeat(seat) {
       this.selSeats.splice(this.selSeats.indexOf(seat), 1);
+      this.selSeatsIds.splice(this.selSeatsIds.indexOf(seat.id), 1);
       seat.available = true;
+    }, 
+    getCookie(name) {
+      const value = document.cookie;
+      const parts = value.split(name);
+      if (parts.length === 2) return parts.pop().split(";").shift();
     },
     updateSeatStatus() {
       if (this.selSeats.length > 0) {
+        var cookie = this.getCookie("Token");
+
         axios
-          .put("http://localhost:9090/theater/events/" + this.id, {
-            seats: JSON.parse(JSON.stringify(this.seats)),
-          })
+          .put("http://localhost:9090/theater/events/" + this.id, this.selSeatsIds, {
+            headers: {
+            authorization: "Bearer" + cookie,
+          }})
           .then((response) =>
             alert(response.data + "You have successfully reserved the seats!")
           )
