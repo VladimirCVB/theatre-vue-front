@@ -86,6 +86,14 @@ export default {
                 }
             }
 
+            this.name = null;
+            this.description = null;
+            this.date = null;
+            this.imgSrc = null;
+            this.seats = null;
+            this.price = null;
+            this.access = false;
+
             this.$emit('add-event', newEvent);
             this.number = "";
         }

@@ -27,11 +27,6 @@
               >
 
               <router-link
-                to="/about"
-                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 ease-in duration-200 hover:text-blue-600 hover:bg-white"
-                >About</router-link
-              >
-              <router-link
                 v-if="user.role == 'administrator'"
                 to="/admin/eventmanager"
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 ease-in duration-200 hover:text-blue-600 hover:bg-white"

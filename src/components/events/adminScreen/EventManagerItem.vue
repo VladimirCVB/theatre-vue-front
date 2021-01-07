@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="mt-5 flex lg:mt-0 lg:ml-4">
-        <span class="hidden sm:block">
+        <span class="sm:ml-3">
         <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             <!-- Heroicon name: pencil -->
             <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -40,7 +40,7 @@
         </button>
         </span>
 
-        <span class="hidden sm:block">
+        <span class="sm:ml-3">
         <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             <!-- Heroicon name: pencil -->
             <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
