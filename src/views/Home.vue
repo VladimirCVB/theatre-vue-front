@@ -17,17 +17,13 @@ export default {
   components: {
     Events,
   },
+  props: ["token"],
   data() {
     return {
       events: [],
     };
   },
   methods: {
-    getCookie(name) {
-      const value = document.cookie;
-      const parts = value.split(name);
-      if (parts.length === 2) return parts.pop().split(";").shift();
-    },
     filterEventByDate(array){
       let today = new Date();
 
@@ -54,7 +50,7 @@ export default {
     }
   },
   created() {
-    var cookie = this.getCookie("Token");
+    var cookie = this.token;
     console.log(cookie);
     axios
       .get("http://localhost:9090/theater/events", {
