@@ -64,12 +64,17 @@ export default {
     return {
       email: null,
       password: null,
+      name: null,
       register: false,
     };
   },
   methods: {
     turnRegister(value) {
       this.register = value;
+      this.email = null;
+      this.password = null;
+      this.name = null;
+      this.passwordConfirm = null;
     },
 
     login(e) {

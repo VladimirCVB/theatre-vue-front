@@ -73,6 +73,7 @@ export default {
   components: {
     Seats,
   },
+  props: ["parsedToken"],
   data() {
     return {
       id: this.$route.params.id,
@@ -111,6 +112,8 @@ export default {
     updateSeatStatus() {
       if (this.selSeats.length > 0) {
         var cookie = this.getCookie("Token");
+        var userId = this.parsedToken.sub;
+        this.selSeatsIds.push(userId);
 
         axios
           .put("http://localhost:9090/theater/events/" + this.id, this.selSeatsIds, {

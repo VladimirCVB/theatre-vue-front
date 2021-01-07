@@ -31,7 +31,6 @@
               <dt class="text-sm font-medium text-gray-500">Email address</dt>
               <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 {{user.email}}
-                <button class="border-2 border-blue-600 p-1 rounded-lg ease-in duration-200 mx-5 hover:bg-blue-600 hover:text-white hover:border-white">Change</button>
               </dd>
             </div>
             <div
@@ -54,8 +53,6 @@
                         <select>
                             <option v-for="seat in ticket.seats" :key="seat.id">{{seat.number}}</option>
                         </select>
-
-                        <i class="far fa-trash-alt ml-2 text-white bg-blue-600 rounded p-1 cursor-pointer"></i>
                     </div>
                 </div>
               </dd>
@@ -94,6 +91,7 @@ export default {
           response => {
               this.user = response.data;
               this.tickets = this.user.tickets;
+              console.log(this.user.tickets);
           }
         )
         .catch((err) => console.log(err));
