@@ -1,5 +1,4 @@
 build-docker:
-  stage: docker
   script:
     - docker built -t vladimirab/theatre
  
