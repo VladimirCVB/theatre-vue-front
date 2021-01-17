@@ -11,12 +11,14 @@
 
               <div class="col-span-8">
                 <label for="email_address" class="block text-sm font-medium text-gray-700">Description</label>
-                <textarea v-model="description" id="email_address" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                <textarea v-model="description" maxlength="250" id="email_address" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                <label class="text-xs text-red-500">*You can only add 250 characters to the description of an event.</label>
               </div>
 
               <div class="col-span-8">
                 <label for="street_address" class="block text-sm font-medium text-gray-700">Date</label>
                 <input v-model="date" type="date" id="street_address" class="mt-1 border-black border-2 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                <label class="text-xs text-red-500">*If you input a past date the event will not be visible to regular users.</label>
               </div>
 
               <div class="col-span-8">

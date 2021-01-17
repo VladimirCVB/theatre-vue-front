@@ -25,34 +25,41 @@ export default {
     },
 
     login(user){
+
       const {email, password} = user;
       var params = new URLSearchParams();
+
       params.append('login', email);
       params.append('password', password);
 
       axios.post('http://localhost:9090/theater/users/login', params)
             .then(function(response) {
-              console.log(response.data);
+              
+              //Set token expiration date
               let d = new Date();
               d.setTime(d.getTime() + 1 * 24 * 60 * 60 * 1000);
               let expires = "expires=" + d.toUTCString();
+
+              //Set token in session storage
               document.cookie = "Token=" + response.data + ";" + expires + ";path=/";
-              //this.$cookies.set("keyName", response.data, "expiring time")
+
+              //Go to home after log in
               window.location.href = "/";
             }).catch(err => this.checkError(err.response.status));
     },
 
     registration(userRegistration){
+
       const {email, name, password} = userRegistration;
       var params = new URLSearchParams();
+
       params.append('email', email);
       params.append('name', name);
       params.append('password', password);
 
       axios.post('http://localhost:9090/theater/users/create', params)
-            .then(function(response) {
-              console.log(response.data);
-            }).catch(err => alert("User with the same email address already exists. " + err));
+            .then(alert("Successful registration! You can log in now."))
+            .catch(err => alert("User with the same email address already exists. " + err));
     }
   }
 }

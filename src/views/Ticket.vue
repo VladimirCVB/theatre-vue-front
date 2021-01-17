@@ -139,12 +139,13 @@ export default {
   created() {
     axios
       .get("http://localhost:9090/theater/events/" + this.id + "/seats")
-      .then((response) => (this.seats = response.data))
-      .catch((err) => console.log(err));
-
-    axios
-      .get("http://localhost:9090/theater/events/" + this.id)
-      .then((response) => (this.event = response.data))
+      .then(response => {
+        this.seats = response.data;
+        axios
+          .get("http://localhost:9090/theater/events/" + this.id)
+          .then((response) => (this.event = response.data))
+          .catch((err) => console.log(err));
+      })
       .catch((err) => console.log(err));
   },
 };
