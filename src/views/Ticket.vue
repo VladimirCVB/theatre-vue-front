@@ -73,7 +73,7 @@ export default {
   components: {
     Seats,
   },
-  props: ["parsedToken"],
+  props: ["parsedToken", "token"],
   data() {
     return {
       id: this.$route.params.id,
@@ -104,21 +104,22 @@ export default {
       this.selSeatsIds.splice(this.selSeatsIds.indexOf(seat.id), 1);
       seat.available = true;
     }, 
-    getCookie(name) {
-      const value = document.cookie;
-      const parts = value.split(name);
-      if (parts.length === 2) return parts.pop().split(";").shift();
-    },
     updateSeatStatus() {
       if (this.selSeats.length > 0) {
-        var cookie = this.getCookie("Token");
+
+        if(this.parsedToken == null){
+          alert("You must be logged in to reserve tickets!");
+          return;
+        }
+        
+
         var userId = this.parsedToken.sub;
         this.selSeatsIds.push(userId);
 
         axios
           .put("http://localhost:9090/theater/events/" + this.id, this.selSeatsIds, {
             headers: {
-            authorization: "Bearer" + cookie,
+            authorization: "Bearer" + this.token,
           }})
           .then((response) =>
             alert(response.data + "You have successfully reserved the seats!")

@@ -25,9 +25,15 @@ export default {
   },
   methods: {
       deleteEvent(id){
-        axios.delete(`http://localhost:9090/theater/events/${id}`)
-            .then(this.events = this.events.filter(event => event.id != id))
-            .catch(err => console.log(err));
+        axios.delete(`http://localhost:9090/theater/events/${id}`, {
+        headers: {
+          authorization: "Bearer" + this.token,
+        }})
+            .then(response => {
+              this.events = this.events.filter(event => event.id != id);
+              console.log(response);
+              })
+            .catch(err => alert("You need to be an administrator to delete events! " + err));
     },
   },
   created(){
