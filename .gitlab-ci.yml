@@ -1,0 +1,6 @@
+build-docker:
+  script:
+    - docker build -t vladimirab/theatre .
+ 
+after_script:
+  - echo "End CI"
